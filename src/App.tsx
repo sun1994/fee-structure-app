@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './store/reducers';
+import FeeStructureList from './components/FeeStructureList';
+import AddFeeStructure from './components/AddFeeStructure';
 
-function App() {
+const store = createStore(rootReducer);
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<FeeStructureList />} />
+            <Route path="/add" element={<AddFeeStructure />} />
+          </Routes>
+        </div>
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;
